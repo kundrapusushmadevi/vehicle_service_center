@@ -1,0 +1,26 @@
+ALTER TABLE offers
+ADD COLUMN image_url VARCHAR(500);
+INSERT INTO offers
+(offer_title, offer_description, discount_percentage, status, image_url)
+VALUES
+(
+'Car Service Offer',
+'Get complete car service at discounted price',
+20,
+'ACTIVE',
+'https://images.unsplash.com/photo-1487754180451-c456f719a1fc'
+),
+(
+'Bike Service Offer',
+'Special bike maintenance package',
+15,
+'ACTIVE',
+'https://images.unsplash.com/photo-1558981806-ec527fa84c39'
+);
+UPDATE offers
+SET image_url='/images/car_offer.jpg'
+WHERE offer_id=1;
+
+UPDATE offers
+SET image_url='/images/bike_offer.jpg'
+WHERE offer_id=2;
