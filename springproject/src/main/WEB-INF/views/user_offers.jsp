@@ -208,20 +208,33 @@ body{
         </h2>
        <div class="offers-container">
     <c:forEach var="offer" items="${offers}">
-        <div class="offer-card">
+    <div class="offer-card">
+
+        <img src="${offer.imageUrl}"
+             alt="${offer.offerTitle}">
+
         <div class="offer-content">
-           <h3>${offer.offerTitle}</h3>
-               <p>${offer.offerDescription}</p>
-               <p>Discount :${offer.discountPercentage}%
-              </p>
-               <p> Status : ${offer.status}
-             </p>
-                <button class="claim-btn">
-                    Claim Offer
-                </button>
-            </div>
+            <h3>${offer.offerTitle}</h3>
+
+            <p>${offer.offerDescription}</p>
+
+            <p>
+                <strong>Discount:</strong>
+                ${offer.discountPercentage}%
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                ${offer.status}
+            </p>
+
+            <button class="claim-btn">
+                Claim Offer
+            </button>
         </div>
-    </c:forEach>
+
+    </div>
+</c:forEach>
 </div>
         </div>
     </div>
