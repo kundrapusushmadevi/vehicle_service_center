@@ -35,9 +35,10 @@ public class OffersController {
 
         List<OfferEntity> offers =
                 offerService.getActiveOffers();
-
+        System.out.println("Offers found: " + offers.size());
         model.addAttribute("offers", offers);
 
         return "user_offers";
     }
+    
 }
