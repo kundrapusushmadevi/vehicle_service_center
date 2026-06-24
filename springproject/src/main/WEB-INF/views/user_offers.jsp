@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,59 +105,128 @@ body{
     margin-bottom:25px;
     color:#111;
 }
+.offer-banner{
+    background:linear-gradient(
+        135deg,
+        #1e3a8a,
+        #2563eb,
+        #38bdf8
+    );
+    color:white;
+    padding:35px;
+    border-radius:15px;
+    margin-bottom:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.offer-banner h1{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.offer-banner p{
+    font-size:17px;
+    opacity:0.95;
+}
 /* OFFERS GRID */
 .offers-container{
     display:grid;
     grid-template-columns:
-    repeat(auto-fit,minmax(300px,1fr));
+        repeat(auto-fill,minmax(340px,1fr));
     gap:25px;
 }
 /* OFFER CARD */
 .offer-card{
+    position:relative;
     background:white;
-    border-radius:12px;
+    border-radius:18px;
     overflow:hidden;
-    box-shadow:0px 2px 8px rgba(0,0,0,0.1);
-    transition:0.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    transition:0.3s ease;
 }
+
 .offer-card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
 }
+/* IMAGE */
 .offer-card img{
     width:100%;
-    height:200px;
+    height:220px;
     object-fit:cover;
 }
+
+/* DISCOUNT BADGE */
+.discount-badge{
+    position:absolute;
+    top:15px;
+    right:15px;
+    background:#ef4444;
+    color:white;
+    padding:10px 14px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:bold;
+    z-index:5;
+}
+/* CONTENT */
 .offer-content{
     padding:20px;
 }
+
 .offer-content h3{
     color:#1e3a8a;
-    margin-bottom:12px;
+    margin-bottom:10px;
+    font-size:22px;
 }
+
 .offer-content p{
-    color:#444;
+    color:#555;
     line-height:1.6;
     margin-bottom:15px;
 }
-/* OFFER BUTTON */
-.claim-btn{
-    padding:10px 18px;
-    border:none;
-    border-radius:6px;
-    background:#2563eb;
-    color:white;
-    cursor:pointer;
+
+/* FOOTER */
+.offer-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* STATUS */
+.status-active{
+    background:#dcfce7;
+    color:#15803d;
+    padding:6px 12px;
+    border-radius:20px;
     font-weight:bold;
 }
-.claim-btn:hover{
-    background:#1d4ed8;
+
+.status-expired{
+    background:#fee2e2;
+    color:#dc2626;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
 }
-/* RESPONSIVE */
-@media(max-width:900px){
-    .container{
-        grid-template-columns:1fr;
-    }
+/* BUTTON */
+.claim-btn{
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #38bdf8
+    );
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.claim-btn:hover{
+    transform:scale(1.05);
 }
 </style>
 </head>
@@ -203,38 +273,65 @@ body{
     </div>
     <!-- MAIN -->
     <div class="main">
-        <h2 class="page-title">
-            Latest Offers
-        </h2>
-       <div class="offers-container">
-    <c:forEach var="offer" items="${offers}">
-    <div class="offer-card">
 
-        <img src="${offer.imageUrl}"
-             alt="${offer.offerTitle}">
-
-        <div class="offer-content">
-            <h3>${offer.offerTitle}</h3>
-
-            <p>${offer.offerDescription}</p>
-
+    <!-- HERO SECTION -->
+    <div class="offer-banner">
+        <div>
+            <h1>🚗 Exclusive Vehicle Service Offers</h1>
             <p>
-                <strong>Discount:</strong>
-                ${offer.discountPercentage}%
+                Save more on servicing, repairs,
+                oil changes and vehicle maintenance.
             </p>
-
-            <p>
-                <strong>Status:</strong>
-                ${offer.status}
-            </p>
-
-            <button class="claim-btn">
-                Claim Offer
-            </button>
         </div>
+    </div>
+
+    <h2 class="page-title">
+        Latest Offers
+    </h2>
+
+    <div class="offers-container">
+
+        <c:forEach var="offer" items="${offers}">
+
+            <div class="offer-card">
+
+                <div class="discount-badge">
+                    ${offer.discountPercentage}% OFF
+                </div>
+
+                <img src="${offer.imageUrl}"
+                     alt="${offer.offerTitle}">
+
+                <div class="offer-content">
+
+                    <h3>${offer.offerTitle}</h3>
+
+                    <p>
+                        ${offer.offerDescription}
+                    </p>
+
+                    <div class="offer-footer">
+
+                        <span class="${offer.status eq 'ACTIVE' ? 'status-active' : 'status-expired'}">
+
+                            ${offer.status}
+
+                        </span>
+
+                        <button class="claim-btn">
+                            Claim Offer
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </c:forEach>
 
     </div>
-</c:forEach>
+
 </div>
         </div>
     </div>
