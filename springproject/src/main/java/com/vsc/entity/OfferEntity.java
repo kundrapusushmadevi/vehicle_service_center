@@ -8,16 +8,11 @@ public class OfferEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_url")
-    private String imageUrl;
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
     @Column(name = "offer_id")
     private Integer offerId;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "offer_title")
     private String offerTitle;
